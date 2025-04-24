@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ItemForm from "./ItemForm";
 import Filter from "./Filter";
 import Item from "./Item";
@@ -13,6 +13,9 @@ function ShoppingList() {
       .then((r) => r.json())
       .then((items) => setItems(items));
   }, []);
+  function handleAddItem(newItem) {
+    setItems([...items, newItem]);
+  }
 
   function handleCategoryChange(category) {
     setSelectedCategory(category);
@@ -26,7 +29,8 @@ function ShoppingList() {
 
   return (
     <div className="ShoppingList">
-      <ItemForm />
+      {/* add the onAddItem prop! */}
+      <ItemForm onAddItem={handleAddItem} />
       <Filter
         category={selectedCategory}
         onCategoryChange={handleCategoryChange}
